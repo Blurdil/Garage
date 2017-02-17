@@ -1,4 +1,5 @@
-﻿using Garage.Models;
+﻿using Garage.DAL;
+using Garage.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,15 @@ namespace Garage.Service
 {
     public class ParkingService
     {
-        private int parkinglots = 30;
+        private GarageContext db = new GarageContext();
+        private int parkinglots = 6;
         public int pricePerHour = 45;
         
-        public int FirstFreeParking(List<Parking> parkings)
+        public int FirstFreeParking(List<Vehicle> vehicles)
         {
             List<int> occipiedLots = new List<int>();
             int firstFree = 0;
-            foreach (var parking in parkings)
+            foreach (var parking in vehicles)
             {
                 if (!occipiedLots.Contains(parking.ParkingLot))
                     occipiedLots.Add(parking.ParkingLot);
@@ -29,6 +31,12 @@ namespace Garage.Service
                 }
             }
             return firstFree;
+        }
+
+        public int FreeLots()
+        {
+            int freeLots = parkinglots - db.Vehicles.Count();
+            return freeLots;
         }
     }
 }

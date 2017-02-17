@@ -1,6 +1,7 @@
 ﻿using Garage.Service;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,30 +9,40 @@ namespace Garage.Models.ViewModels.ParkingViews
 {
     public class ReciptViewModel
     {
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd HH:mm}")]
+        [Display(Name = "Parkering Startad")]
         public DateTime StartTime { get; set; }
+        [DisplayFormat(DataFormatString = "{0: yyyy-MM-dd HH:mm}")]
+        [Display(Name = "Parkering Avslutad")]
         public DateTime EndTime { get; set; }
+        [Display(Name = "Parkerad Tid")]
         public string Duration { get; set; }
-        public int Cost { get; set; }
+        [Display(Name = "Kostnad")]
+        public double Cost { get; set; }
+        [Display(Name = "Registrerings Nummer")]
         public string RegNr { get; set; }
+        [Display(Name = "Märke")]
         public string Fabricate { get; set; }
+        [Display(Name = "Model")]
         public string FabricateModel { get; set; }
+        [Display(Name = "Medlem")]
         public string MemberName { get; set; }
 
-        public ReciptViewModel toViewModel(Parking parking)
+        public ReciptViewModel toViewModel(Vehicle vehicle)
         {
             DateTime endTime = DateTime.Now;
             CounterService cs = new CounterService();
-            var minuts = cs.ConvertToMinuts(parking.StartParkingTime, endTime);
+            double minuts = cs.ConvertToMinuts(vehicle.StartParkingTime, endTime);
             string duration = cs.ConvertToTime(minuts);
-            int cost = cs.GetCost(minuts); 
+            double cost = cs.GetCost(minuts); 
             ReciptViewModel model = new ReciptViewModel
             {
-                StartTime = parking.StartParkingTime,
+                StartTime = vehicle.StartParkingTime,
                 EndTime = endTime,
-                RegNr = parking.Vehicle.RegNr,
-                Fabricate = parking.Vehicle.Fabricate,
-                FabricateModel = parking.Vehicle.FabricateModel,
-                MemberName = parking.Member.FirstName + " " + parking.Member.LastName,
+                RegNr = vehicle.RegNr,
+                Fabricate = vehicle.Fabricate,
+                FabricateModel = vehicle.FabricateModel,
+                MemberName = vehicle.Member.FirstName + " " + vehicle.Member.LastName,
                 Duration = duration,
                 Cost = cost,
             };

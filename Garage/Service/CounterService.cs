@@ -7,7 +7,7 @@ namespace Garage.Service
 {
     public class CounterService
     {
-        public string ConvertToTime(int minuts)
+        public string ConvertToTime(double minuts)
         {
             string time = "";
             time = TimeSpan.FromMinutes(minuts).ToString();
@@ -21,10 +21,10 @@ namespace Garage.Service
             return minuts;
         }
 
-        public int GetCost(int minuts)
+        public double GetCost(double minuts)
         {
-            int price = new ParkingService().pricePerHour;
-            return minuts * price;
+            double price = new ParkingService().pricePerHour;
+            return (price / 60) * minuts;
         }
 
     }

@@ -1,9 +1,17 @@
 ﻿@model Garage.Models.ViewModels.MemberView.MemberViewModel
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Översikt Medlem";
 }
 
 <h2>@ViewBag.Title</h2>
+
+<h3>Hej @Html.DisplayFor(m => m.FullName)!</h3>
+<p>
+    Vad vill du göra idag? Parkera en bil kan du göra här nedanför! 
+    Vill du söka bland @Html.ActionLink("Medlemar", "ShowMembers") eller vill du se
+    vilka bilar det finns i @Html.ActionLink("Garaget", "ParkedVehicles", "Parking").
+</p>
 
 <div>
     <dl>
@@ -11,29 +19,35 @@
         <dd>@Html.DisplayFor(m => m.FullName)</dd>
         <dt>@Html.DisplayNameFor(m => m.Email)</dt>
         <dd>@Html.DisplayFor(m => m.Email)</dd>
-        <dt>@Html.DisplayNameFor(m => m.ParkingMinuts)</dt>
-        <dd>@Html.DisplayFor(m => m.ParkingMinuts)</dd>
     </dl>
 </div>
 
 <div>
-    @{ 
-        if(Model.ParkingLot < 1)
-        {
-            using(Html.BeginForm("Park", "Parking", new { MemberId = Model.Id }))
-            {
-                @Html.AntiForgeryToken()
-                <h1>Parkera Bil</h1>
-                @Html.Action("ParkingForm", "Parking")
-                <input type="submit" value="Parkera fordon" />
-            }
-        }
-        else
-        {
-            <div>
-                Din bil med registrerings nummer @Html.DisplayFor(m => m.RegNr): @Html.DisplayFor(m => m.ParkingLot)
-                @Html.ActionLink("Checka ut bil", "Checkout", "Parking", new { regNr = Model.RegNr}, null)
+@if (Model.vehicles != null)
+{
+    <div>
+        @foreach(var item in Model.vehicles)
+        { 
+            <div class="vehicleRow"> Din bil med registrerings nummer @Html.DisplayFor(m => item.RegNr) på parkeringsplats: @Html.DisplayFor(m => item.ParkingLot)
+            @Html.ActionLink("Checka ut bil", "Checkout", "Parking", new { regNr = item.RegNr }, new { @class = "button" })
             </div>
+         }
+    </div>
+}
+@if (Model.FreeLots > 0)
+{
+    <div>
+        @using (Html.BeginForm("Park", "Parking", new { MemberId = Model.Id }))
+        {
+        @Html.AntiForgeryToken()
+        <h1>Parkera Bil</h1>
+        @Html.Action("ParkingForm", "Parking")
+        <input type="submit" value="Parkera fordon" />
         }
-    }
+    </div>
+}
+else
+{
+    <h3>Garaget är fullt.</h3>
+}
 </div>

@@ -1,0 +1,26 @@
+﻿@model Garage.Models.ViewModels.ParkingViews.VehicleDetailViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detaljer på fordon med registrering nummer : @Model.RegNr</h2>
+
+<dl class="dl-horizontal">
+    <dt>@Html.DisplayNameFor(m => m.Owner)</dt>
+    <dd>@Html.DisplayFor(m => m.Owner)</dd>
+    <dt>@Html.DisplayNameFor(m => m.VehicleType)</dt>
+    <dd>@Html.DisplayFor(m => m.VehicleType)</dd>
+    <dt>@Html.DisplayNameFor(m => m.Fabricate)</dt>
+    <dd>@Html.DisplayFor(m => m.Fabricate)</dd>
+    <dt>@Html.DisplayNameFor(m => m.FabricateModel)</dt>
+    <dd>@Html.DisplayFor(m => m.FabricateModel)</dd>
+
+
+    <dt>@Html.DisplayNameFor(m => m.NumberOfTyres)</dt>
+    <dd>@Html.DisplayFor(m => m.NumberOfTyres)</dd>
+</dl>
+
+@Html.ActionLink("Tillbaka till listan", "ParkedVehicles")
+
+

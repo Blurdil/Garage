@@ -9,16 +9,13 @@ namespace Garage.DAL
 {
     public class GarageContext : DbContext
     {
-        public GarageContext() : base("GarageContext")
+        public GarageContext() : base("GarageContextDev")
         {
             Database.SetInitializer(new GarageContextInitialiazer());
 
         }
 
         public DbSet<Member> Members { get; set; }
-        public DbSet<Parking> Parkings { get; set; }
-        //public DbSet<ParkingHouse> ParkingHouse { get; set; }
-        //public DbSet<ParkingHouseFloors> ParkingHouseFloors { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<VehicleType> VehiclesType { get; set; }
     }

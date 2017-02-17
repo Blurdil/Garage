@@ -25,7 +25,7 @@ namespace Garage.DAL
 
             var members = new[]
             {
-                new Member { FirstName = "Mimer", LastName = "Eklund", Email = "mimer.eklund@gmail.com", ParkingMinuts = 3421 },
+                new Member { FirstName = "Mimer", LastName = "Eklund", Email = "mimer.eklund@gmail.com"},
                 new Member { FirstName = "Bert", LastName = "Bertilsson", Email = "bert@gmail.com" },
                 new Member { FirstName = "Adam", LastName = "Adamsson", Email = "adam@gmail.com" }
             };
@@ -43,23 +43,14 @@ namespace Garage.DAL
 
             var vehicles = new[]
             {
-                new Vehicle { RegNr = "AAA 001", Color = "Svart", Fabricate = "Volvo", FabricateModel = "V70", VehicleTypeId = vehicleTypes[0].Id },
-                new Vehicle { RegNr = "AAA 002", Color = "Svart", Fabricate = "Saab", FabricateModel = "9000", VehicleTypeId = vehicleTypes[0].Id },
-                new Vehicle { RegNr = "AAA 003", Color = "Gul", Fabricate = "Ford", FabricateModel = "Focus", VehicleTypeId = vehicleTypes[0].Id },
-                new Vehicle { RegNr = "AAA 004", Color = "Röd", Fabricate = "Volvo", FabricateModel = "XC 90", VehicleTypeId = vehicleTypes[0].Id },
-                new Vehicle { RegNr = "AAA 005", Color = "Grå", Fabricate = "Ford", FabricateModel = "Mondeo", VehicleTypeId = vehicleTypes[0].Id },
-                new Vehicle { RegNr = "AAA 006", Color = "Svart", Fabricate = "Volvo", FabricateModel = "Bus", VehicleTypeId = vehicleTypes[2].Id },
+                new Vehicle { RegNr = "AAA 001", Color = "Svart", Fabricate = "Volvo", FabricateModel = "V70", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[0].Id, StartParkingTime = DateTime.Now.AddHours(-4), ParkingLot = 1 },
+                new Vehicle { RegNr = "AAA 002", Color = "Svart", Fabricate = "Saab", FabricateModel = "9000", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[0].Id, StartParkingTime = DateTime.Now.AddHours(-2), ParkingLot = 2 },
+                new Vehicle { RegNr = "AAA 003", Color = "Gul", Fabricate = "Ford", FabricateModel = "Focus", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[0].Id, StartParkingTime = DateTime.Now.AddHours(-1), ParkingLot = 4 },
+                new Vehicle { RegNr = "AAA 004", Color = "Röd", Fabricate = "Volvo", FabricateModel = "XC 90", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[1].Id, StartParkingTime = DateTime.Now.AddHours(-6), ParkingLot = 5 },
+                new Vehicle { RegNr = "AAA 005", Color = "Grå", Fabricate = "Ford", FabricateModel = "Mondeo", VehicleTypeId = vehicleTypes[0].Id, MemberId = members[1].Id, StartParkingTime = DateTime.Now.AddHours(-2), ParkingLot = 10 },
+                new Vehicle { RegNr = "AAA 006", Color = "Svart", Fabricate = "Volvo", FabricateModel = "Bus", VehicleTypeId = vehicleTypes[2].Id, MemberId = members[0].Id, StartParkingTime = DateTime.Now.AddHours(-10), ParkingLot = 12 },
             };
             context.Vehicles.AddRange(vehicles);
-            context.SaveChanges();
-
-            var parkings = new[]
-            {
-                new Parking { MemberId = members[0].Id, ParkingLot = 1, StartParkingTime = DateTime.Now, VehicleId = vehicles[0].Id },
-                new Parking { MemberId = members[1].Id, ParkingLot = 2, StartParkingTime = DateTime.Now, VehicleId = vehicles[2].Id },
-                new Parking { MemberId = members[2].Id, ParkingLot = 5, StartParkingTime = DateTime.Now, VehicleId = vehicles[4].Id },
-            };
-            context.Parkings.AddRange(parkings);
             context.SaveChanges();
 
         }

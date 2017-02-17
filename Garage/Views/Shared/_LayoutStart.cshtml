@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body id="startpage">
+    <div id="startDiv">
+        <div class="center login">
+        <div>
+            <h1>Välkommen till Bulldozer Garage</h1>
+            <p>Det här är bara för medlemar. Men det är lätt att registrera sig! Bara klicka på länken och registrera dig! </p>
+        </div>
+        <div>
+            @RenderBody()
+        </div>
+        </div>
+    </div>
+</body>
+</html>

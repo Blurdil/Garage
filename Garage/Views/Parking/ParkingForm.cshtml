@@ -5,14 +5,12 @@
         <dt>@Html.DisplayNameFor(m => m.VehicleType)</dt>
         <dd>@Html.DropDownListFor(m => m.Type, new SelectList(Model.VehicleType, "id", "Type"), "Typ av fordon")</dd>
         <dt>@Html.DisplayNameFor(m => m.RegNr)</dt>
-        <dd>@Html.EditorFor(m => m.RegNr)</dd>
+        <dd>@Html.EditorFor(m => m.RegNr)</dd> @Html.ValidationMessageFor(m => m.RegNr, null , new { @class= "text-danger" })
         <dt>@Html.DisplayNameFor(m => m.Color)</dt>
-        <dd>@Html.EditorFor(m => m.Color)</dd>
+        <dd>@Html.EditorFor(m => m.Color)</dd> @Html.ValidationMessageFor(m => m.Color, null, new { @class = "text-danger" })
         <dt>@Html.DisplayNameFor(m => m.Fabricate)</dt>
-        <dd>@Html.EditorFor(m => m.Fabricate)</dd>
+        <dd>@Html.EditorFor(m => m.Fabricate)</dd> @Html.ValidationMessageFor(m => m.Fabricate, null, new { @class = "text-danger" })
         <dt>@Html.DisplayNameFor(m => m.FabricateModel)</dt>
-        <dd>@Html.EditorFor(m => m.FabricateModel)</dd>
+        <dd>@Html.EditorFor(m => m.FabricateModel)</dd> @Html.ValidationMessageFor(m => m.FabricateModel, null, new { @class = "text-danger" })
     </dl>
-
-
 </div>

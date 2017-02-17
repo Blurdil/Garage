@@ -12,9 +12,8 @@ namespace Garage.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public int ParkingMinuts { get; set; }
-        public int ParkingId { get; set; }
 
-        public virtual ICollection<Parking> Parking { get; set; }
+
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
     }
 }

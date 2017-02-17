@@ -1,29 +1,39 @@
 ﻿@model Garage.Models.ViewModels.MemberViews.ShowMemberViewModel
 @{
+    Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "ShowMembers";
 }
 
 <h2>ShowMembers</h2>
+@Html.ActionLink("Skapa Medlem", "Create")
 @using (Html.BeginForm())
 {
     @Html.Editor("searchTerm")
     <input type="submit" value="Sök" />
     <input type="button" value="Återställ" onclick="location.href='@Url.Action("ShowMembers")'" />
 }
-<table>
+<table class="table">
     <tr>
-        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.FirstName).ToString(), "ShowMembers", new { orderBy = "firstName", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
+        <th>@Html.ActionLink(HttpUtility.HtmlDecode(Html.DisplayNameFor(m => m.FirstName).ToString()), "ShowMembers", new { orderBy = "firstName", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
         <th>@Html.ActionLink(Html.DisplayNameFor(m => m.LastName).ToString(), "ShowMembers", new { orderBy = "lastname", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
         <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Email).ToString(), "ShowMembers", new { orderBy = "email", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
         <th>@Html.DisplayNameFor(m => m.ParkedVehicles)</th>
     </tr>
     @foreach (var item in Model.Members)
     {
-        <tr>
+        <tr>    
             <td>@Html.DisplayFor(m => item.FirstName)</td>
             <td>@Html.DisplayFor(m => item.LastName)</td>
             <td>@Html.DisplayFor(m => item.Email)</td>
             <td>@Html.DisplayFor(m => item.ParkedVehicles)</td>
+            <td>
+                @Html.ActionLink("Information", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Ändra", "Edit", new { id = item.Id}) |
+            @if (item.ParkedVehicles < 1)
+            {
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            }
+            </td>
         </tr>
     }
 

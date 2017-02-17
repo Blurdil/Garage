@@ -23,6 +23,7 @@ namespace Garage.Controllers
             var member = db.Members.Find(MemberNr);
             if(member != null)
             {
+                Session["MemberID"] = MemberNr;
                 return RedirectToAction("Index", "Member", new { id = MemberNr });
             }
             ViewBag.ErrorMessage = "Ingen medlem med det numret hittades.";

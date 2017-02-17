@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace Garage.Controllers
 {
@@ -39,6 +40,66 @@ namespace Garage.Controllers
             }
             ModelState.AddModelError("", "Kunde inte spara till databasen.");
             return View(model);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            var member = db.Members.Find(id);
+            MemberCreateViewModel model = new MemberCreateViewModel();
+            model = model.ToViewModel(member);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(MemberCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var member = db.Members.Find(model.Id);
+                member.FirstName = model.FirstName;
+                member.LastName = model.LastName;
+                member.Email = model.Email;
+                db.Entry(member).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("ShowMembers", new { id = member.Id });
+            }
+            ModelState.AddModelError("", "Kunde inte spara till databasen.");
+            return View(model);
+        }
+
+        public ActionResult Details(int id)
+        {
+            var member = db.Members.Find(id);
+            MemberDetailsViewModel model = new MemberDetailsViewModel();
+            model = model.ToViewModel(member);
+            return View(model);
+        }
+
+        public ActionResult Delete(int id)
+        {
+            var member = db.Members.Find(id);
+            MemberDetailsViewModel model = new MemberDetailsViewModel();
+            model = model.ToViewModel(member);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, bool confirm = true)
+        {
+            var member = db.Members.Find(id);
+            if (confirm)
+            {
+                db.Members.Remove(member);
+                db.SaveChanges();
+                return RedirectToAction("ShowMembers");
+            }
+            ModelState.AddModelError("", "Kunde inte ta bort användaren");
+            MemberDetailsViewModel model = new MemberDetailsViewModel();
+            model = model.ToViewModel(member);
+            return View(model);
+             
         }
 
         public ActionResult ShowMembers(string orderBy, string sortOrder, string searchTerm)
