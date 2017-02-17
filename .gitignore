@@ -1,3 +1,5 @@
 .vs/
 Garage/obj/
 Garage/bin/
+packages/
+Garage/App_Data/GarageContextDev_log.ldf
