@@ -1,0 +1,39 @@
+﻿@model Garage.Models.ViewModels.MemberView.MemberViewModel
+@{
+    ViewBag.Title = "Översikt Medlem";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <dl>
+        <dt>@Html.DisplayNameFor(m => m.FullName)</dt>
+        <dd>@Html.DisplayFor(m => m.FullName)</dd>
+        <dt>@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd>@Html.DisplayFor(m => m.Email)</dd>
+        <dt>@Html.DisplayNameFor(m => m.ParkingMinuts)</dt>
+        <dd>@Html.DisplayFor(m => m.ParkingMinuts)</dd>
+    </dl>
+</div>
+
+<div>
+    @{ 
+        if(Model.ParkingLot < 1)
+        {
+            using(Html.BeginForm("Park", "Parking", new { MemberId = Model.Id }))
+            {
+                @Html.AntiForgeryToken()
+                <h1>Parkera Bil</h1>
+                @Html.Action("ParkingForm", "Parking")
+                <input type="submit" value="Parkera fordon" />
+            }
+        }
+        else
+        {
+            <div>
+                Din bil med registrerings nummer @Html.DisplayFor(m => m.RegNr): @Html.DisplayFor(m => m.ParkingLot)
+                @Html.ActionLink("Checka ut bil", "Checkout", "Parking", new { regNr = Model.RegNr}, null)
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model Garage.Models.ViewModels.VehicleViews.VehicleShowViewModel
+@{
+    ViewBag.Title = "ShowMembers";
+}
+
+<h2>ShowMembers</h2>
+@using (Html.BeginForm())
+{
+    @Html.Editor("searchTerm")
+    <input type="submit" value="Sök" />
+    <input type="button" value="Återställ" onclick="location.href='@Url.Action("ShowMembers")'" />
+}
+<table>
+    <tr>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Regnr).ToString(), "ShowMembers", new { orderBy = "firstName", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Fabricate).ToString(), "ShowMembers", new { orderBy = "lastname", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
+        <th>@Html.ActionLink(Html.DisplayNameFor(m => m.Email).ToString(), "ShowMembers", new { orderBy = "email", sortOrder = ViewBag.SortOrder, searchTerm = ViewBag.SearchTerm })</th>
+        <th>@Html.DisplayNameFor(m => m.ParkedVehicles)</th>
+    </tr>
+    @foreach (var item in Model.Members)
+    {
+        <tr>
+            <td>@Html.DisplayFor(m => item.FirstName)</td>
+            <td>@Html.DisplayFor(m => item.LastName)</td>
+            <td>@Html.DisplayFor(m => item.Email)</td>
+            <td>@Html.DisplayFor(m => item.ParkedVehicles)</td>
+        </tr>
+    }
+
+</table>
+
+

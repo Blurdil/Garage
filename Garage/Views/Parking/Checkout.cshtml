@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+}
+
+<h2>Checkout bil @ViewBag.Reg</h2>
+
+Vill du ha kvitto? 
+@Html.ActionLink("Ja", "Recipt", "Parking", new { RegNr = ViewBag.Reg }, null)
+@Html.ActionLink("Nej", "Recipt", "Parking", new { RegNr = ViewBag.Reg, CreateRecipt = false}, null)
+

@@ -1,0 +1,21 @@
+﻿@model Garage.Models.ViewModels.MemberViews.MemberCreateViewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<dl>
+    <dt>@Html.DisplayNameFor(m => m.FirstName)</dt>
+    <dd>@Html.EditorFor(m => m.FirstName)</dd>
+    <dt>@Html.DisplayNameFor(m => m.LastName)</dt>
+    <dd>@Html.EditorFor(m => m.LastName)</dd>
+    <dt>@Html.DisplayNameFor(m => m.Email)</dt>
+    <dd>@Html.EditorFor(m => m.Email)</dd>
+</dl>
+    <input type="submit" value="Registrera" />
+    <input type="button" value="Gå tillbaka" onclick="location.href='@Url.Action("Search", "Welcome")'" />
+}

@@ -1,0 +1,26 @@
+﻿@model Garage.Models.ViewModels.ParkingViews.ReciptViewModel
+@{
+    ViewBag.Title = "Recipt";
+}
+
+<h2>Recipt @Html.DisplayFor(m => m.MemberName)</h2>
+
+<dl>
+    <dt>@Html.DisplayNameFor(m => m.StartTime)</dt>
+    <dd>@Html.DisplayFor(m => m.StartTime)</dd>
+    <dt>@Html.DisplayNameFor(m => m.EndTime)</dt>
+    <dd>@Html.DisplayFor(m => m.EndTime)</dd>
+    <dt>@Html.DisplayNameFor(m => m.RegNr)</dt>
+    <dd>@Html.DisplayFor(m => m.RegNr)</dd>
+    <dt>@Html.DisplayNameFor(m => m.Fabricate)</dt>
+    <dd>@Html.DisplayFor(m => m.Fabricate)</dd>
+    <dt>@Html.DisplayNameFor(m => m.FabricateModel)</dt>
+    <dd>@Html.DisplayFor(m => m.FabricateModel)</dd>
+
+    <dt>@Html.DisplayNameFor(m => m.Duration)</dt>
+    <dd>@Html.DisplayFor(m=> m.Duration)</dd>
+    <dt>@Html.DisplayNameFor(m => m.Cost)</dt>
+    <dd>@Html.DisplayFor(m => m.Cost)</dd>
+</dl>
+
+@Html.ActionLink("Till starsidan", "Index", "Member", new {  id = ViewBag.MemberId }, null)

@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Sök/Registrera Medlem";
+}
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.Editor("MemberNr")
+    <input type="submit" value="Sök" />
+}
+
+@Html.ActionLink("Registrera ny medlem", "Create", "Member")
